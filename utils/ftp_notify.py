@@ -6,10 +6,11 @@ from datetime import datetime
 
 import yaml
 
-with open("config.yml", 'r') as ymlfile:
+dir_name = os.path.dirname(os.path.realpath(__file__))
+
+with open(dir_name + "/config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
-dir_name = os.path.dirname(os.path.realpath(__file__))
 lastversion_path = dir_name + "/lastversion.txt"
 
 with ftputil.FTPHost("ftp.ebi.ac.uk", "anonymous", "anonymous") as ftp_host:
