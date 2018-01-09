@@ -4,6 +4,11 @@ import ftputil
 import os
 from datetime import datetime
 
+import yaml
+
+with open("test.yml", 'r') as ymlfile:
+    cfg = yaml.load(ymlfile)
+
 dir_name = os.path.dirname(os.path.realpath(__file__))
 lastversion_path = dir_name + "/lastversion.txt"
 
@@ -30,12 +35,12 @@ with ftputil.FTPHost("ftp.ebi.ac.uk", "anonymous", "anonymous") as ftp_host:
 
 
 sent_from = "bioinf.notification@gmail.com@gmail.com"
-to = ["daniel.dudola@gmail.com"]  
+to = cfg['addresses'] 
 subject = "OMG Super Important Message"
 body = "Subject: CSAH server notification\n\nNew database is available!"
 
 gmail_user = "bioinf.notification@gmail.com"
-gmail_password = ""
+gmail_password = cfg['password']
 
 
 import smtplib
