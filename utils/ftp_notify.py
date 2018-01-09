@@ -6,7 +6,7 @@ from datetime import datetime
 
 import yaml
 
-with open("test.yml", 'r') as ymlfile:
+with open("config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
 dir_name = os.path.dirname(os.path.realpath(__file__))
