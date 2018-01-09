@@ -17,13 +17,16 @@ with ftputil.FTPHost("ftp.ebi.ac.uk", "anonymous", "anonymous") as ftp_host:
     ftp_path_sprot = "pub/databases/uniprot/knowledgebase/uniprot_sprot.fasta.gz"
     current_timestamp = ftp_host.path.getmtime(ftp_path_trembl)
 
-    with open(lastversion_path) as fp:  
-        saved_timestamp = float(fp.readline())
-        print(saved_timestamp)
-        print(current_timestamp)
-        if saved_timestamp == current_timestamp:
-            print("No new upload found.")
-            raise SystemExit(0)
+    try:
+        with open(lastversion_path) as fp:  
+            saved_timestamp = float(fp.readline())
+            print(saved_timestamp)
+            print(current_timestamp)
+            if saved_timestamp == current_timestamp:
+                print("No new upload found.")
+                raise SystemExit(0)
+    except FileNotFoundError:
+        print("Initial startup.")
 
     print("New upload found.")
 
