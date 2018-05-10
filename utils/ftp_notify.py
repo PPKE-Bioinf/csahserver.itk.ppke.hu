@@ -21,7 +21,8 @@ if not os.path.isdir(SAVE_PATH):
 with ftputil.FTPHost("ftp.ebi.ac.uk", "anonymous", "anonymous") as ftp_host:
     ftp_path_trembl = "pub/databases/uniprot/knowledgebase/uniprot_trembl.fasta.gz"
     ftp_path_sprot = "pub/databases/uniprot/knowledgebase/uniprot_sprot.fasta.gz"
-    current_timestamp = ftp_host.path.getmtime(ftp_path_trembl)
+    ftp_path_reldate = "pub/databases/uniprot/knowledgebase/reldate.txt"
+    current_timestamp = ftp_host.path.getmtime(ftp_path_reldate)
 
     try:
         with open(lastversion_path) as fp:
@@ -41,6 +42,11 @@ with ftputil.FTPHost("ftp.ebi.ac.uk", "anonymous", "anonymous") as ftp_host:
 
     ftp_host.download(ftp_path_trembl, SAVE_PATH + "/uniprot_trembl.fasta.gz")
     ftp_host.download(ftp_path_sprot, SAVE_PATH + "/uniprot_sprot.fasta.gz")
+    ftp_host.download(ftp_path_reldate, SAVE_PATH + "/reldate.txt")
+
+    os.chmod(SAVE_PATH + "/uniprot_trembl.fasta.gz", 0o666)
+    os.chmod(SAVE_PATH + "/uniprot_sprot.fasta.gz", 0o666)
+    os.chmod(SAVE_PATH + "/reldate.txt", 0o666)
 
 
 sent_from = "bioinf.notification@gmail.com@gmail.com"
